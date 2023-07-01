@@ -1,9 +1,5 @@
 #include "genesis.h"
 
-/********************************************/
-//Extern Functions
-/********************************************/
-
 //Creates a new instance of the virtual machine
 VM* createVM(){
     return (VM*)malloc(sizeof(VM));
@@ -61,6 +57,6 @@ void start(VM *vm, uint32_t *ops, int size){
     while (vm->registers[RPC] < size){
         uint32_t i = prog_read(vm, vm->registers[RPC]++);
 
-        op_ex[OpCode(i)](i);
+        op_ex[OpCode(i)](vm, i);
     }
 }

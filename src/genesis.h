@@ -27,7 +27,7 @@
 //Little Endian Encoding
 #define ENCODE(i, s) (((i) >> (s * 8)) & 0xFF)
 
-typedef void (*op_ex_f)(uint32_t instruction);
+typedef void (*op_ex_f)(VM *vm, uint32_t instruction);
 typedef struct VM VM;
 typedef enum regist reg;
 
