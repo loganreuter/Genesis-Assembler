@@ -234,7 +234,49 @@ void JMP(VM *vm, uint32_t i)
     vm->registers[PC] = IMM16(i);
 }
 
-void JUMP(VM *vm, uint32_t i){}
+void JUMP(VM *vm, uint32_t i)
+{
+    switch(MODE(i)){
+        //JE
+        case 0x0:
+            debug("JUMP", "JE %Xh", IMM16(i));
+            if(vm->registers[FLAG] & ZF)
+                vm->registers[PC] = IMM16(i);
+            break;
+        //JNE
+        case 0x1:
+            debug("JUMP", "JNE %Xh", IMM16(i));
+            if(!(vm->registers[FLAG] & ZF))
+                vm->registers[PC] = IMM16(i);
+            break;
+        //JG
+        case 0x2:
+            debug("JUMP", "JG %Xh", IMM16(i));
+            if(!(vm->registers[FLAG] & SF))
+                vm->registers[PC] = IMM16(i);
+            break;
+        //JGE
+        case 0x3:
+            debug("JUMP", "JGE %Xh", IMM16(i));
+            if(!(vm->registers[FLAG] - ZF))
+                vm->registers[PC] = IMM16(i);
+            break;
+        //JL
+        case 0x4:
+            debug("JUMP", "JL %Xh", IMM16(i));
+            if(vm->registers[FLAG] & SF)
+                vm->registers[PC] = IMM16(i);
+            break;
+        //JLE
+        case 0x5:
+            debug("JUMP", "JLE %Xh", IMM16(i));
+            if(vm->registers[FLAG] & (SF | ZF))
+                vm->registers[PC] = IMM16(i);
+            break;
+        default:
+            break;
+    }
+}
 
 /********************************************/
 // Stack
