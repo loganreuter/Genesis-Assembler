@@ -27,9 +27,9 @@
 //Little Endian Encoding
 #define ENCODE(i, s) (((i) >> (s * 8)) & 0xFF)
 
-typedef void (*op_ex_f)(VM *vm, uint32_t instruction);
 typedef struct VM VM;
-typedef enum regist reg;
+// typedef enum regist reg;
+typedef void (*op_ex_f)(VM *vm, uint32_t instruction);
 
 //Registers
 enum regist
@@ -103,7 +103,7 @@ op_ex_f op_ex[NOPS];
 
 VM* createVM();
 
-void update_flag(VM *vm, reg r);
+void update_flag(VM *vm, enum regist r);
 void update_flag_imm(VM *vm, uint32_t v);
 
 uint32_t prog_read(VM *vm, uint16_t address);

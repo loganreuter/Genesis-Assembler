@@ -16,6 +16,8 @@ typedef enum TokenType {
     COMMA,
     LBRACK,
     RBRACK,
+    COLON,
+    PERIOD,
 
     NUM_TYPES
 } TokenType;
@@ -25,7 +27,7 @@ typedef struct Token {
     char *value;
 } Token;
 
-void Read(char *filepath);
+int Read(char *filepath);
 
 void Tokenize(FILE *file);
 
