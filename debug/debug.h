@@ -12,7 +12,7 @@ inline int __cdecl debug(const char *name, const char *_format, ...){
     if(DEBUGGING){
         va_list arg;
 
-        printf("\033[0;35m (%s):", name);
+        printf("\033[0;35m(%s): ", name);
 
         va_start(arg, _format);
         done = vfprintf(stdout, _format, arg);
