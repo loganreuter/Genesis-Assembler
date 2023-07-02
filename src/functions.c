@@ -69,13 +69,13 @@ void ADD(VM *vm, uint32_t i)
     else if ((MODE(i) >> 1) & 0x1)
     {
         debug("ADD", "IADD %s %Xh", name(SR1(i)), prog_read(vm, vm->registers[RPC]));
-        vm->registers[SR1(i)] = vm->registers[SR1(i)] + prog_read(vm, vm->registers[RPC]++);
+        vm->registers[SR1(i)] += prog_read(vm, vm->registers[RPC]++);
     }
     //ADD
     else if (MODE(i) & 0x1)
     {
         debug("ADD", "ADD %s %s", name(SR1(i)), name(SR2(i)));
-        vm->registers[SR1(i)] = vm->registers[SR1(i)] + vm->registers[SR2(i)];
+        vm->registers[SR1(i)] += vm->registers[SR2(i)];
     }
     update_flag(vm, SR1(i));
 }
@@ -93,13 +93,13 @@ void SUB(VM *vm, uint32_t i)
     else if ((MODE(i) >> 1) & 0x1)
     {
         debug("SUB", "ISUB %s %Xh", name(SR1(i)), prog_read(vm, vm->registers[RPC]));
-        vm->registers[SR1(i)] = vm->registers[SR1(i)] - prog_read(vm, vm->registers[RPC]++);
+        vm->registers[SR1(i)] -= prog_read(vm, vm->registers[RPC]++);
     }
     //SUB
     else if (MODE(i) & 0x1)
     {
         debug("SUB", "SUB %s %s", name(SR1(i)), name(SR2(i)));
-        vm->registers[SR1(i)] = vm->registers[SR1(i)] - vm->registers[SR2(i)];
+        vm->registers[SR1(i)] -= vm->registers[SR2(i)];
     }
     update_flag(vm, SR1(i));
 }
@@ -111,13 +111,13 @@ void MUL(VM *vm, uint32_t i)
     if((MODE(i) >> 1) & 0x1)
     {
         debug("MUL", "IMUL %s %Xh", name(SR1(i)), prog_read(vm, vm->registers[RPC]));
-        vm->registers[SR1(i)] = vm->registers[SR1(i)] * prog_read(vm, vm->registers[RPC]++);
+        vm->registers[SR1(i)] *= prog_read(vm, vm->registers[RPC]++);
     }
     //MUL
     else if (MODE(i) & 0x1)
     {
         debug("MUL", "MUL %s %s", name(SR1(i)), name(SR2(i)));
-        vm->registers[SR1(i)] = vm->registers[SR1(i)] * vm->registers[SR2(i)];
+        vm->registers[SR1(i)] *= vm->registers[SR2(i)];
     }
 }
 
@@ -128,13 +128,13 @@ void DIV(VM *vm, uint32_t i)
     if((MODE(i) >> 1) & 0x1)
     {
         debug("DIV", "IDIV %s %Xh", name(SR1(i)), prog_read(vm, vm->registers[RPC]));
-        vm->registers[SR1(i)] = vm->registers[SR1(i)] / prog_read(vm, vm->registers[RPC]++);
+        vm->registers[SR1(i)] /= prog_read(vm, vm->registers[RPC]++);
     }
     //DIV
     else if (MODE(i) & 0x1)
     {   
         debug("DIV", "DIV %s %s", name(SR1(i)), name(SR2(i)));
-        vm->registers[SR1(i)] = vm->registers[SR1(i)] / vm->registers[SR2(i)];
+        vm->registers[SR1(i)] /= vm->registers[SR2(i)];
     }
 
     update_flag(vm, SR1(i));
@@ -147,12 +147,12 @@ void MOD(VM *vm, uint32_t i)
     if((MODE(i) >> 1) & 0x1)
     {
         debug("MOD", "IMOD %s %Xh", name(SR1(i)), prog_read(vm, vm->registers[RPC]));
-        vm->registers[SR1(i)] = vm->registers[SR1(i)] % prog_read(vm, vm->registers[RPC]++);
+        vm->registers[SR1(i)] %= prog_read(vm, vm->registers[RPC]++);
     }
     else if(MODE(i) & 0x1)
     {
         debug("MOD", "MOD %s %s", name(SR1(i)), name(SR2(i)));
-        vm->registers[SR1(i)] = vm->registers[SR1(i)] % vm->registers[SR2(i)];
+        vm->registers[SR1(i)] %= vm->registers[SR2(i)];
     }
 
     update_flag(vm, SR1(i));
@@ -165,13 +165,13 @@ void SH(VM *vm, uint32_t i)
     if((MODE(i) >> 1) & 0x1)
     {
         debug("SH", "SHR %s %Xh", name(SR1(i)), prog_read(vm, vm->registers[RPC]));
-        vm->registers[SR1(i)] = vm->registers[SR1(i)] >> prog_read(vm, vm->registers[RPC]++);
+        vm->registers[SR1(i)] >>= prog_read(vm, vm->registers[RPC]++);
     } 
     //SHL
     else if(MODE(i) & 0x1)
     {
         debug("SH", "SHL %s %Xh", name(SR1(i)), prog_read(vm, vm->registers[RPC]));
-        vm->registers[SR1(i)] = vm->registers[SR1(i)] << prog_read(vm, vm->registers[RPC]++);
+        vm->registers[SR1(i)] <<= prog_read(vm, vm->registers[RPC]++);
     }
 }
 
