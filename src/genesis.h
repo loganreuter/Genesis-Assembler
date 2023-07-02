@@ -40,7 +40,7 @@ enum regist
     EDX,
     EEX,
     EFX,
-    RPC,
+    PC,
     ESP,
     EBP,
     ESI,
@@ -61,8 +61,8 @@ char *name(enum regist r){
             return "EDX";
         case EFX:
             return "EFX";
-        case RPC:
-            return "RPC";
+        case PC:
+            return "PC";
         case ESP:
             return "ESP";
         case EBP:

@@ -64,10 +64,10 @@ void start(VM *vm, uint32_t *ops, int size){
         vm->program[i] = *(ops++);
     }
 
-    vm->registers[RPC] = 0x0;
+    vm->registers[PC] = 0x0;
 
-    while (vm->registers[RPC] < size){
-        uint32_t i = prog_read(vm, vm->registers[RPC]++);
+    while (vm->registers[PC] < size){
+        uint32_t i = prog_read(vm, vm->registers[PC]++);
 
         op_ex[OpCode(i)](vm, i);
     }
