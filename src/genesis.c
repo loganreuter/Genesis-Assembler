@@ -6,13 +6,25 @@ VM* createVM(){
 }
 
 //Update the flag register
-void update_flag(VM *vm, reg r){
-    // vm->registers[FLAG] = 0;
+void update_flag(VM *vm, reg r)
+{
+    vm->registers[FLAG] = 0;
     
     if (vm->registers[r] == 0)
         vm->registers[FLAG] = ZF;
 
     if (vm->registers[r] >> 31)
+        vm->registers[FLAG] = SF;
+}
+//Update the flag register with an immediate value
+void update_flag_imm(VM *vm, uint32_t val)
+{
+    vm->registers[FLAG] = 0;
+
+    if(val == 0)
+        vm->registers[FLAG] = ZF;
+    
+    if(val >> 31)
         vm->registers[FLAG] = SF;
 }
 

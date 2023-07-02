@@ -179,15 +179,43 @@ void SH(VM *vm, uint32_t i)
 // Logical
 /********************************************/
 
-void AND(VM *vm, uint32_t i){}
+void AND(VM *vm, uint32_t i)
+{
+    debug("AND", "AND %s %s", name(SR1(i)), name(SR2(i)));
+    vm->registers[SR1(i)] &= vm->registers[SR2(i)];
 
-void OR(VM *vm, uint32_t i){}
+    update_flag(vm, SR1(i));
+}
 
-void XOR(VM *vm, uint32_t i){}
+void OR(VM *vm, uint32_t i)
+{
+    debug("OR", "OR %s %s", name(SR1(i)), name(SR2(i)));
+    vm->registers[SR1(i)] |= vm->registers[SR2(i)];
 
-void TEST(VM *vm, uint32_t i){}
+    update_flag(vm, SR1(i));
+}
 
-void NOT(VM *vm, uint32_t i){}
+void XOR(VM *vm, uint32_t i)
+{
+    debug("XOR", "XOR %s %s", name(SR1(i)), name(SR2(i)));
+    vm->registers[SR1(i)] ^= vm->registers[SR2(i)];
+
+    update_flag(vm, SR1(i));
+}
+
+void TEST(VM *vm, uint32_t i)
+{
+    debug("TEST", "TEST %s %s", name(SR1(i)), name(SR2(i)));
+    update_flag(vm, vm->registers[SR1(i)] & vm->registers[SR2(i)]);
+}
+
+void NOT(VM *vm, uint32_t i)
+{
+    debug("NOT", "NOT %s", name(SR1(i)));
+    vm->registers[SR1(i)] = ~vm->registers[SR1(i)];
+
+    update_flag(vm, vm->registers[SR1(i)]);
+}
 
 /********************************************/
 // Control Flow

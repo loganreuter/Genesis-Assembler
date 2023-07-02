@@ -104,6 +104,7 @@ op_ex_f op_ex[NOPS];
 VM* createVM();
 
 void update_flag(VM *vm, reg r);
+void update_flag_imm(VM *vm, uint32_t v);
 
 uint32_t prog_read(VM *vm, uint16_t address);
 
