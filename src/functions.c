@@ -282,7 +282,13 @@ void JUMP(VM *vm, uint32_t i)
 // Stack
 /********************************************/
 
-void PUSH(VM *vm, uint32_t i){}
+void PUSH(VM *vm, uint32_t i)
+{
+    //IMM   
+    if(MODE(i) & 0x1){
+
+    }
+}
 
 void POP(VM *vm, uint32_t i){}
 
