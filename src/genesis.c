@@ -6,7 +6,7 @@ VM* createVM(){
 }
 
 //Update the flag register
-void update_flag(VM *vm, reg r)
+void update_flag(VM *vm, enum regist r)
 {
     vm->registers[FLAG] = 0;
     

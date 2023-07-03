@@ -9,33 +9,82 @@
 int Read(char *filepath){
     debug("Read", "%s", filepath);
     FILE *file;
-    char line[MAX_LINE_LENGTH] = {0};
-    unsigned int line_count = 0;
-
+    
+    /*
+    Open the file
+    Report error if it occurs
+    */
     file = fopen(filepath, "r");
-    if(!file)
-    {
+    if(!file){
         perror(filepath);
         return EXIT_FAILURE;
     }
-    
-    while (fgets(line, MAX_LINE_LENGTH, file))
-    {
-        printf("line[%06d]: %s", ++line_count, line);
-        
-        if(line[strlen(line) - 1] != '\n')
-            printf("\n");
-    }
 
-    return fclose(file);
+    Lexer *lexer = Tokenize(file);
+    return 0;
 }
 
-int main(int argc, char* argv[]){
-    printf("Hello, World\n");
+Lexer* Tokenize(FILE *file)
+{
+    Lexer *lexer = malloc(sizeof(Lexer));
+    char line[MAX_LINE_LENGTH] = {0};
+    unsigned int line_count = 0;
 
-    for(int i = 0; i < argc; i++){
-        printf("%s\n", argv[i]);
+    while (fgets(line, MAX_LINE_LENGTH, file))
+    {   
+        int col = 0;
+        printf("line[%06d]: %s", ++line_count, line);
+        
+        while(1)
+        {
+            char c = next(line, col++);
+            char *token_value;
+
+            if(c == ';' || c == '\n' || c == '\r')
+                break;
+            
+            if(c == '%')
+            {
+                char p = peek(line, col);
+                while(p != ',')
+                {
+                    p = next(line, col++);
+                    printf("P: %c\n", p);
+                    // strcat(token_value, &p);
+                    // printf("%s", token_value);
+                    // p = peek(line, col);
+                    
+                    if(isspace(p) != 0)
+                        printf("Hello");
+                        break;
+                }
+                printf("Register: %s\n", token_value);
+            }            
+            // else if(isdigit(c))
+            // {
+
+            // }
+
+        }
     }
+
+    fclose(file);
+
+    return lexer;
+}
+
+char next(char *line, int col)
+{
+    return line[col];
+}
+
+char peek(char *line, int col)
+{
+    return line[col];
+}
+
+int main(int argc, char* argv[])
+{
     if(argc < 1)
         return EXIT_FAILURE;
     char *path = argv[1];
