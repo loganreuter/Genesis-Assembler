@@ -4,7 +4,7 @@
 #include <stdio.h>
 #include <stdarg.h>
 
-const int DEBUGGING = 1;
+#define DEBUGGING 1
 
 inline int __cdecl debug(const char *name, const char *_format, ...){
     int done = 0;

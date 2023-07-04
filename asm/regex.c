@@ -26,9 +26,10 @@ int matchhere(char *regex, char *text)
         return *text == '\0';
     if(*text != '\0' && (regex[0] == '.' || regex[0] == *text))
         return matchhere(regex + 1, text + 1);
+    return 0;
 }
 
-int matchstart(int c, char *regex, char *text)
+int matchstar(int c, char *regex, char *text)
 {
     do{
         if(matchhere(regex, text))

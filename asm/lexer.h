@@ -1,13 +1,15 @@
 #ifndef LEXER_H
 #define LEXER_H
 
-#include "stdio.h"
-#include "stdlib.h"
+#include <stdio.h>
+#include <stdlib.h>
 #include <ctype.h>
-#include "string.h"
+#include <string.h>
 
 #include "../debug/debug.h"
 #include "../src/genesis.h"
+
+#include "regex.h"
 
 #define MAX_LINE_LENGTH 100
 
@@ -27,6 +29,8 @@ typedef enum TokenType
     COLON,
     PERIOD,
 
+    END,
+
     NUM_TYPES
 } TokenType;
 
@@ -44,6 +48,6 @@ typedef struct Lexer
     Token *tokens;
 } Lexer;
 
-Lexer *Tokenize(FILE *file);
+extern Lexer *Tokenize(FILE *file);
 
 #endif

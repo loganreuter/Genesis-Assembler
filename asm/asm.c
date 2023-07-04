@@ -3,11 +3,14 @@
 #endif
 
 #include "asm.h"
+#include "regex.h"
 
 int Read(char *filepath){
     debug("Read", "%s", filepath);
     FILE *file;
     
+    match("^%", "%eax");
+
     /*
     Open the file
     Report error if it occurs
@@ -19,14 +22,6 @@ int Read(char *filepath){
     }
 
     Lexer *lexer = Tokenize(file);
+
     return 0;
-}
-
-int main(int argc, char* argv[])
-{
-    if(argc < 1)
-        return EXIT_FAILURE;
-    char *path = argv[1];
-
-    return Read(path);
 }

@@ -10,11 +10,8 @@
 #include "../src/genesis.h"
 
 #include "lexer.h"
+#include "regex.h"
 
-int Read(char *filepath);
-
-void Parse(Token *tokens);
-
-void Generate();
+extern int Read(char *filepath);
 
 #endif

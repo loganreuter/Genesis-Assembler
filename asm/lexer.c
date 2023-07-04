@@ -1,3 +1,7 @@
+#ifdef _MSC_VER
+#define _CRT_SECURE_NO_WARNINGS
+#endif
+
 #include "lexer.h"
 
 const char *keywords[] = {
@@ -5,7 +9,8 @@ const char *keywords[] = {
     "WORD",
     "DWORD",
     "section",
-    "global"
+    "global",
+    "EOF"
 };
 
 int isBlankLine(char *line)
@@ -27,6 +32,21 @@ int removeComments(char *line)
     return 1;
 }
 
+int isKeyword(char *token)
+{
+    int i = 0;
+    while(strcmp(keywords[i], "EOF") == 0)
+    {
+        if(strcmp(token, keywords[i]) == 0)
+            return 1;
+        i++;
+    }
+    return 0;
+}
+
+/// @brief Creates a lexer with tokens for a given input file.
+/// @param file 
+/// @return Pointer to a Lexer struct
 Lexer *Tokenize(FILE *file)
 {
     Lexer *lexer = malloc(sizeof(Lexer));
@@ -52,7 +72,16 @@ Lexer *Tokenize(FILE *file)
         // Loop through tokens
         while (token != NULL)
         {
-            debug("tokenize", "Token: %s\n", token);
+
+            if(match("^%", token))
+            {
+                debug("tokenize", "Register: %s\n", token);
+            }
+            else if(isKeyword(token))
+            {
+                debug("tokenize", "Keyword: %s\n", token);
+            }
+            else { debug("tokenize", "Token: %s\n", token); }
 
             token = strtok(NULL, delim);
         }

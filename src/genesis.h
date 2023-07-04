@@ -49,7 +49,7 @@ enum regist
     REG_CNT
 };
 //Returns the name of the register
-char *name(enum regist r){
+inline char *name(enum regist r){
     switch (r){
         case EAX:
             return "EAX";
@@ -101,19 +101,19 @@ struct VM
 
 op_ex_f op_ex[NOPS];
 
-VM* createVM();
+extern VM* createVM();
 
-void update_flag(VM *vm, enum regist r);
-void update_flag_imm(VM *vm, uint32_t v);
+extern void update_flag(VM *vm, enum regist r);
+extern void update_flag_imm(VM *vm, uint32_t v);
 
-uint32_t prog_read(VM *vm, uint16_t address);
+extern uint32_t prog_read(VM *vm, uint16_t address);
 
-uint8_t mem_read(VM *vm, uint16_t address);
-uint32_t mem_readn(VM *vm, uint16_t address, int size);
-void mem_write(VM *vm, uint16_t address, uint8_t val);
+extern uint8_t mem_read(VM *vm, uint16_t address);
+extern uint32_t mem_readn(VM *vm, uint16_t address, int size);
+extern void mem_write(VM *vm, uint16_t address, uint8_t val);
 
-void clear(VM *vm);
+extern void clear(VM *vm);
 
-void start(VM *vm, uint32_t *ops, int size);
+extern void start(VM *vm, uint32_t *ops, int size);
 
 #endif
