@@ -6,6 +6,25 @@
 
 #define MAX_LINE_LENGTH 100
 
+int isBlankLine(char *line)
+{
+    for(int i = 0; i < strlen(line); i++)
+    {
+        if(!isspace(line[i]))
+            return 0;
+    }
+    return 1;
+}
+
+int removeComments(char *line)
+{
+    char *ptr = strchr(line, ';');
+    if (ptr != NULL)
+        *ptr = '\0';
+        return 0;
+    return 1;
+}
+
 int Read(char *filepath){
     debug("Read", "%s", filepath);
     FILE *file;
@@ -30,42 +49,34 @@ Lexer* Tokenize(FILE *file)
     char line[MAX_LINE_LENGTH] = {0};
     unsigned int line_count = 0;
 
+    const char *delim = " , : ";
+
     while (fgets(line, MAX_LINE_LENGTH, file))
     {   
-        int col = 0;
-        printf("line[%06d]: %s", ++line_count, line);
+        //Skip lines that are just comments or are empty
+        if(line[0] == ';' || isBlankLine(line))
+            continue;
+
+        removeComments(line);
         
-        while(1)
+        int col = 0;
+        debug("tokenize", "line[%06d]: %s", ++line_count, line);
+
+        //Split line at delimeters
+        char *token = strtok(line, delim);
+
+        //Loop through tokens
+        while(token != NULL)
         {
-            char c = next(line, col++);
-            char *token_value;
-
-            if(c == ';' || c == '\n' || c == '\r')
-                break;
+            debug("tokenize", "Token: %s\n", token);
             
-            if(c == '%')
-            {
-                char p = peek(line, col);
-                while(p != ',')
-                {
-                    p = next(line, col++);
-                    printf("P: %c\n", p);
-                    // strcat(token_value, &p);
-                    // printf("%s", token_value);
-                    // p = peek(line, col);
-                    
-                    if(isspace(p) != 0)
-                        printf("Hello");
-                        break;
-                }
-                printf("Register: %s\n", token_value);
-            }            
-            // else if(isdigit(c))
-            // {
 
-            // }
-
+            
+            
+            
+            token = strtok(NULL, delim);
         }
+
     }
 
     fclose(file);

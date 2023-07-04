@@ -45,13 +45,17 @@ typedef struct Lexer {
     Error *errors;
 } Lexer;
 
+const char *keywords[] = {
+    "BYTE",
+    "WORD",
+    "DWORD",
+    "section",
+    "global"
+};
+
 int Read(char *filepath);
 
 Lexer* Tokenize(FILE *file);
-
-char next();
-char peek(char *line, int col);
-
 
 void Parse(Token *tokens);
 
