@@ -10,6 +10,7 @@ section .text:
 _start:
     mov %eax, a ; move variable a into eax
     mov %ebx, b ; move variable b into ebx
+    str [%eax + 4], a ; store variable a into memory 
     add %eax, %ebx
 
 ; result should be 3
