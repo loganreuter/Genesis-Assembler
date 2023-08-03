@@ -1,0 +1,6 @@
+[submodule "include/Genesis"]
+	path = include/Genesis
+	url = https://github.com/loganreuter/Genesis.git
+[submodule "include/debug"]
+	path = include/debug
+	url = https://github.com/loganreuter/debug.git
