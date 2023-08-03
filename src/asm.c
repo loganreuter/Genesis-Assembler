@@ -3,20 +3,18 @@
 #endif
 
 #include "asm.h"
-#include "regex.h"
 
 int Read(char *filepath){
     debug("Read", "%s", filepath);
     FILE *file;
-    
-    match("^%", "%eax");
 
     /*
     Open the file
     Report error if it occurs
     */
     file = fopen(filepath, "r");
-    if(!file){
+    if(!file)
+    {
         perror(filepath);
         return EXIT_FAILURE;
     }
